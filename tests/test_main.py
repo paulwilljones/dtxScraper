@@ -7,10 +7,6 @@ from mock import patch
 
 class dtxScraperTests(unittest.TestCase):
 
-    def setUp(self):
-
-        pass
-
 
     @patch('__builtin__.open')
     @patch('dtxScraper.main.logging')
@@ -23,9 +19,15 @@ class dtxScraperTests(unittest.TestCase):
         mock_logger.error.assert_called_once_with('Failed to open grades file')
 
 
-    def test_get_grade_bad_file_contents(self):
+    @patch('__builtin__.open')
+    @patch('dtxScraper.main.logging')
+    def test_get_grade_empty_file_contents(self, mock_logger, mock_open):
 
-        pass
+        mock_open.readlines.return_value = []
+        with self.assertRaises(Exception):
+            main.get_grade(123, 'some_file')
+        mock_open.assert_called_once_with('some_file', 'r')
+        mock_logger.error.assert_called_once_with('Grade file is empty')
 
 
     def test_get_grade_empty_file(self):
@@ -39,6 +41,11 @@ class dtxScraperTests(unittest.TestCase):
 
 
     def test_get_grade_no_splittable_line(self):
+
+        pass
+
+
+    def test_get_grade_returns_grade(self):
 
         pass
 

@@ -60,6 +60,9 @@ def get_grade(employee_number, grades_file):
         logging.error('Failed to open grades file')
         raise
     content = f.readlines()
+    if len(content) == 0:
+        logging.error('Grade file is empty')
+        raise Exception
     grade = ""
     for line in content:
         if employee_number in line:
