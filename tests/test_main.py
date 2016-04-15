@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 from dtxScraper import main
+import mock
 import unittest
+from mock import patch
 
 class dtxScraperTests(unittest.TestCase):
 
@@ -10,9 +12,15 @@ class dtxScraperTests(unittest.TestCase):
         pass
 
 
-    def test_get_grade_bad_file_io(self):
+    @patch('__builtin__.open')
+    @patch('dtxScraper.main.logging')
+    def test_get_grade_bad_file_io(self, mock_logger, mock_open):
 
-        pass
+        mock_open.side_effect = IOError
+        with self.assertRaises(IOError):
+            main.get_grade(123, "some_file")
+        mock_open.assert_called_once_with('some_file', 'r')
+        mock_logger.error.assert_called_once_with('Failed to open grades file')
 
 
     def test_get_grade_bad_file_contents(self):

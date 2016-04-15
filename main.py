@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import logging
 import os.path
 import random
 import string
@@ -53,7 +54,11 @@ def main():
 
 def get_grade(employee_number, grades_file):
 
-    f = open(grades_file, 'r')
+    try:
+        f = open(grades_file, 'r')
+    except IOError:
+        logging.error('Failed to open grades file')
+        raise
     content = f.readlines()
     grade = ""
     for line in content:
