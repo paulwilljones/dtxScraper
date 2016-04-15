@@ -1,7 +1,5 @@
-csv/*
-reports/*
-timesheets/*
 template.xlsx
 grades.txt
 *.pyc
 .DS_Store
+tests/*.pyc
