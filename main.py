@@ -15,14 +15,15 @@ def main():
     parser = OptionParser()
     parser.add_option("-c", "--csv", dest="csv_dir", default="./csv",
                       help="Directory containing csv files of reports")
-    parser.add_option("-r", "--reports", dest="reports_dir", default="./reports",
-                      help="Directory containing reports")
-    parser.add_option("-t", "--timesheets", dest="timesheets_dir", default="./timesheets",
+    parser.add_option("-r", "--reports", dest="reports_dir",
+                      default="./reports", help="Directory containing reports")
+    parser.add_option("-t", "--timesheets", dest="timesheets_dir",
+                      default="./timesheets",
                       help="Directory to store generated timesheets")
     parser.add_option("-g", "--generate", dest="generate", default="all",
                       help="csv, timesheets, all [default: all]")
-    parser.add_option("-s", "--grades", dest="grades_file", default="./grades.txt",
-                      help="File containing grades")
+    parser.add_option("-s", "--grades", dest="grades_file",
+                      default="./grades.txt", help="File containing grades")
 
     (options, args) = parser.parse_args()
 
@@ -75,10 +76,12 @@ def get_grade(employee_number, grades_file):
 
 def generate_csv(filepath, output_dir):
 
-    randomint = random.randint(1,1000)
-    output_filepath = os.path.join(output_dir, "{}{}".format(randomint, '.csv'))
+    randomint = random.randint(1, 1000)
+    output_filepath = os.path.join(output_dir, "{}{}".format(
+        randomint, '.csv'))
 
-    p = Popen(['java', '-jar', './tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar',
+    p = Popen(['java', '-jar',
+               './tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar',
                filepath, '-o', output_filepath, '-f', 'CSV', '-r'],
               stdout=PIPE, stderr=STDOUT)
     p.wait()
@@ -120,17 +123,18 @@ def calculate_time_bookings(time_bookings):
         else:
             project_code = project[0]
         bookable = True if project[1] != 'NBT' else False
-        #do something with total_time
+        # do something with total_time
         total_time = project[3]
 
         day_bookings = {}
-        for i in range(5,36):
+        for i in range(5, 36):
             try:
                 day_bookings[i-4] = '1' if project[i] == "7.50" else '0'
             except IndexError:
                 pass
         project_bookings[project_code] = {
-            "bookable":bookable, "total_time":total_time, "day_bookings":day_bookings}
+            "bookable": bookable, "total_time": total_time,
+            "day_bookings": day_bookings}
 
     return project_bookings
 
@@ -160,15 +164,16 @@ def generate_timesheet(name, period, grade, time_bookings, output_dir):
                 date_object = datetime.strptime('{} {} {}'.format(
                     year, month, day), '%Y %B %d')
 
-                if date_object.isoweekday() not in [6,7]:
-                    worksheet[cell_ref] = int(time_bookings[key]["day_bookings"][day])
+                if date_object.isoweekday() not in [6, 7]:
+                    worksheet[cell_ref] = int(
+                        time_bookings[key]["day_bookings"][day])
 
             except ValueError:
                 pass
-        count =+ 1
+        count+1
 
     filename = 'Timesheet_{}_{}{}.xlsx'.format(
-        name.replace(',',"").replace(" ",""), month, year)
+        name.replace(',', "").replace(" ", ""), month, year)
     filepath = os.path.join(output_dir, filename)
     workbook.save(filepath)
 
@@ -176,12 +181,13 @@ def generate_timesheet(name, period, grade, time_bookings, output_dir):
 def generate_cell_refs(index):
 
     cell_refs = []
-    for i in range(1,26):
+    for i in range(1, 26):
         cell_refs.append("{}{}".format(string.uppercase[i], str(index+15)))
 
-    for i in range(0,9):
+    for i in range(0, 9):
         cell_refs.append(
-            "{}{}{}".format(string.uppercase[0], string.uppercase[i], str(index+15)))
+            "{}{}{}".format(
+                string.uppercase[0], string.uppercase[i], str(index+15)))
 
     return cell_refs
 
