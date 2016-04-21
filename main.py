@@ -54,6 +54,7 @@ def main():
 
 
 def get_grade(employee_number, grades_file):
+    """Using an employee's number obtain their grade from the grades file"""
 
     try:
         f = open(grades_file, 'r')
@@ -75,6 +76,7 @@ def get_grade(employee_number, grades_file):
 
 
 def generate_csv(filepath, output_dir):
+    """Call the tabular jar to generate corresponding csv from pdf report"""
 
     randomint = random.randint(1, 1000)
     output_filepath = os.path.join(output_dir, "{}{}".format(
@@ -88,6 +90,7 @@ def generate_csv(filepath, output_dir):
 
 
 def parse_data(data):
+    """Parse the csv data and reformat to facilitate searchability"""
 
     tables = data.split("\n")
     i = 0
@@ -100,6 +103,7 @@ def parse_data(data):
 
 
 def get_details(spaced_tables):
+    """From the parsed data pull out employee details"""
 
     details = spaced_tables[0].split("\r")
     kv = {}
@@ -113,6 +117,7 @@ def get_details(spaced_tables):
 
 
 def calculate_time_bookings(time_bookings):
+    """Generate time booking data based on bookings made in report pdf"""
 
     project_bookings = {}
 
@@ -140,6 +145,7 @@ def calculate_time_bookings(time_bookings):
 
 
 def generate_timesheet(name, period, grade, time_bookings, output_dir):
+    """Insert generated values into output csv"""
 
     workbook = load_workbook('template.xlsx')
     worksheet = workbook.get_sheet_by_name('Supplier Timesheet')
@@ -179,6 +185,7 @@ def generate_timesheet(name, period, grade, time_bookings, output_dir):
 
 
 def generate_cell_refs(index):
+    """Generate cell locations to insert values into output csv"""
 
     cell_refs = []
     for i in range(1, 26):
