@@ -13,17 +13,19 @@ from subprocess import Popen, STDOUT, PIPE
 def main():
 
     parser = OptionParser()
-    parser.add_option("-c", "--csv", dest="csv_dir", default="./csv",
+    parser.add_option("-c", "--csv", dest="csv_dir", default="files/csv",
                       help="Directory containing csv files of reports")
     parser.add_option("-r", "--reports", dest="reports_dir",
-                      default="./reports", help="Directory containing reports")
+                      default="files/reports",
+                      help="Directory containing reports")
     parser.add_option("-t", "--timesheets", dest="timesheets_dir",
-                      default="./timesheets",
+                      default="files/timesheets",
                       help="Directory to store generated timesheets")
     parser.add_option("-g", "--generate", dest="generate", default="all",
                       help="csv, timesheets, all [default: all]")
     parser.add_option("-s", "--grades", dest="grades_file",
-                      default="./grades.txt", help="File containing grades")
+                      default="files/grades.txt",
+                      help="File containing grades")
 
     (options, args) = parser.parse_args()
 
@@ -147,7 +149,7 @@ def calculate_time_bookings(time_bookings):
 def generate_timesheet(name, period, grade, time_bookings, output_dir):
     """Insert generated values into output csv"""
 
-    workbook = load_workbook('template.xlsx')
+    workbook = load_workbook('files/template.xlsx')
     worksheet = workbook.get_sheet_by_name('Supplier Timesheet')
 
     month = period.split()[0]

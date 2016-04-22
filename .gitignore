@@ -1,12 +1,6 @@
-template.xlsx
-grades.txt
 *.pyc
 .DS_Store
 tests/*.pyc
-csv/*
-!csv/.gitkeep
-reports/*
-!reports/.gitkeep
-timesheets/*
-!timesheets/.gitkeep
 *.egg-info
+files/*
+!files/.gitkeep
