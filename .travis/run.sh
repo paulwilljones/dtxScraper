@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python tests/test_main.py
+python dtxScraper/tests/test_main.py
