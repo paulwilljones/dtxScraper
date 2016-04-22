@@ -9,4 +9,4 @@ reports/*
 !reports/.gitkeep
 timesheets/*
 !timesheets/.gitkeep
-dtxScraper.egg-info/
+*.egg-info
