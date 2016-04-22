@@ -15,5 +15,6 @@ setup(name='dtxScraper',
       package_dir={'dtxScraper': 'dtxScraper'},
       include_package_data=True,
       license='MIT',
+      zip_safe=False,
       test_suite='tests',
       )
