@@ -1,9 +1,6 @@
 #!/usr/bin/python
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -15,8 +12,8 @@ setup(name='dtxScraper',
       author='Paul Jones',
       url='https://github.com/pwjones89/dtxScraper',
       packages=['dtxScraper'],
-      package_dir={'dtxScraper':
-                   'dtxScraper'},
+      package_dir={'dtxScraper': 'dtxScraper'},
       include_package_data=True,
+      license='MIT',
       test_suite='tests',
       )
