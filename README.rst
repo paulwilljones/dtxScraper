@@ -1,4 +1,4 @@
 dtxScraper
 ==========
-.. image:: https://travis-ci.org/pwjones89/dtxScraper.svg?branch=master
-    :target: https://travis-ci.org/pwjones89/dtxScraper
+.. image:: https://travis-ci.org/paulwilljones/dtxScraper.svg?branch=master
+    :target: https://travis-ci.org/paulwilljones/dtxScraper
